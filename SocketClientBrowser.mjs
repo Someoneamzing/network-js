@@ -12,8 +12,8 @@ export default class Client extends Common {
     this.ws.addEventListener('open', ()=>{
       console.log("WS connected");
     })
-
-    this.ws.addEventListener('message', this.messageHandler(this.ws))
+    this.handler = this.messageHandler(this.ws);
+    this.ws.addEventListener('message', (event)=> this.handler(event.data))
   }
 
   send(...args) {
