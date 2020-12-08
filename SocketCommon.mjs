@@ -33,7 +33,7 @@ export default class Common {
         }
         if (i < msg.length) {
           channel = msg.substring(0, i);
-          data = msg.substring(i+1, ArrayBuffer.from(msg, e=>e.charCodeAt(0)).length);
+          data = msg.substring(i+1, Uint8Array.from(msg, e=>e.charCodeAt(0)).length);
         } else {
           throw new Error('Recieved malformed string message. Missing channel name delimiter.')
         }
