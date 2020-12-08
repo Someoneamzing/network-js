@@ -9,11 +9,11 @@ export default class Client extends Common {
     console.log(this.url.href);
     this.ws = new WebSocket(this.url.href);
     this.ws.binaryType = 'arraybuffer';
-    this.ws.on('open', ()=>{
+    this.ws.addEventListener('open', ()=>{
       console.log("WS connected");
     })
 
-    this.ws.on('message', this.messageHandler(this.ws))
+    this.ws.addEventListener('message', this.messageHandler(this.ws))
   }
 
   send(...args) {
