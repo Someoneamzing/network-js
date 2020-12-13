@@ -11,12 +11,12 @@ export default class Client extends Common {
     this.ws.binaryType = 'arraybuffer';
     this.ws.addEventListener('open', (...args)=>{
       console.log("WS connected");
-      this.emit('open', ...args);
+      this.internalEmit('open', ...args);
     })
     this.handler = this.messageHandler(this.ws);
     this.ws.addEventListener('message', (event)=> this.handler(event.data))
-    this.ws.addEventListener('error', (...args)=>this.emit('error', ...args));
-    this.ws.addEventListener('close', (...args)=>this.emit('close', ...args));
+    this.ws.addEventListener('error', (...args)=>this.internalEmit('error', ...args));
+    this.ws.addEventListener('close', (...args)=>this.internalEmit('close', ...args));
   }
 
   send(...args) {

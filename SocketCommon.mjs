@@ -102,6 +102,15 @@ export default class Common {
     this.listeners.get(channel).add(fn);
     fn[Common.ONCE_SYMBOL] = true;
   }
+
+  internalEmit(channel, ...args) {
+    if (this.listeners.has(channel)) {
+      for (let listener of this.listeners.get(channel)) {
+        listener(...args);
+        if (listener[Common.ONCE_SYMBOL]) this.listeners.get(channel).delete(listener);
+      }
+    }
+  }
 };
 
 Common.TYPE_RAW = 0x00;
