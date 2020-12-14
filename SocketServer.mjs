@@ -14,7 +14,7 @@ export default class Server extends Common {
 
     this.wss.on('connection', (ws, req)=>{
       ws.binaryType = 'arraybuffer';
-      ws.id = new URL(req.url).searchParams.get('uid');
+      ws.id = new URL(req.url, 'ws://localhost').searchParams.get('uid');
       ws.on('message', this.messageHandler(ws))
       this.internalEmit('connection', ws);
     })
