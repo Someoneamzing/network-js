@@ -1,11 +1,12 @@
 import Message from './Message.mjs';
-import Common from './SocketCommon.mjs';
+import Common, {generateID} from './SocketCommon.mjs';
 
 export default class Client extends Common {
   constructor(url) {
     super();
     this.url = new URL(url, 'ws://localhost');
     this.url.protocol = "ws:";
+    this.url.searchParams.set('uid', generateID())
     console.log(this.url.href);
     this.ws = new WebSocket(this.url.href);
     this.ws.binaryType = 'arraybuffer';

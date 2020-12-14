@@ -8,13 +8,20 @@ export default class Server extends Common {
     this.port = port;
     this.wss = new WebSocket.Server({
       port,
+      clientTracking: true
     });
     this.listeners = new Map();
 
-    this.wss.on('connection', (ws)=>{
+    this.wss.on('connection', (ws, req)=>{
       ws.binaryType = 'arraybuffer';
+      ws.id = new URL(req.url).searchParams.get('uid');
       ws.on('message', this.messageHandler(ws))
+      this.internalEmit('connection', ws);
     })
+  }
+
+  get clients() {
+    return this.wss.clients;
   }
 
   send(...args) {
